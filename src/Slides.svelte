@@ -14,7 +14,7 @@
     currentIndex = 0;
 
   onMount(() => {
-    const slides = document.querySelectorAll('.slide');
+    const slides = document.querySelectorAll('div');
     slides.forEach((slide, index) => {
       // Touch event listeners
       slide.addEventListener('touchstart', touchStart(index));
@@ -81,9 +81,9 @@
 
 <svelte:window on:contextmenu|preventDefault|stopPropagation />
 
-<div bind:this={slider} class="slider-container">
+<article bind:this={slider}>
   {#each data as { product, price, src }}
-    <div class="slide" on:dragstart={(e) => e.preventDefault()}>
+    <div on:dragstart={(e) => e.preventDefault()}>
       <h2>{product}</h2>
       <h4>{price}</h4>
       <img
@@ -92,13 +92,13 @@
         alt={product}
         on:dragstart|preventDefault
       />
-      <button class="btn">Buy Now</button>
+      <button>Buy Now</button>
     </div>
   {/each}
-</div>
+</article>
 
 <style>
-  .slider-container {
+  article {
     height: 90vh;
     display: inline-flex;
     overflow: hidden;
@@ -107,7 +107,7 @@
     cursor: grab;
   }
 
-  .slide {
+  div {
     max-height: 100vh;
     width: 100vw;
     display: flex;
@@ -118,29 +118,29 @@
     user-select: none;
   }
 
-  .slide img {
+  img {
     max-width: 100%;
     max-height: 50%;
     transition: transform 0.3s ease-in-out;
   }
 
-  .slide h2 {
+  h2 {
     font-size: 2.5rem;
     margin-bottom: 0rem;
   }
 
-  .slide h4 {
+  h4 {
     font-size: 1.3rem;
   }
 
-  .btn {
+  button {
     background-color: #444;
     color: #fff;
     text-decoration: none;
     padding: 1rem 1.5rem;
   }
 
-  .grabbing .slide img {
+  :global(.grabbing img) {
     transform: scale(0.9);
   }
 </style>
