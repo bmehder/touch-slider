@@ -82,8 +82,8 @@
 <svelte:window on:contextmenu|preventDefault|stopPropagation />
 
 <article bind:this={slider}>
-  {#each data as { product, price, src }}
-    <div on:dragstart={(e) => e.preventDefault()}>
+  {#each data as { product, price, src, btnText }}
+    <div on:dragstart|preventDefault>
       <h2>{product}</h2>
       <h4>{price}</h4>
       <img
@@ -92,14 +92,14 @@
         alt={product}
         on:dragstart|preventDefault
       />
-      <button>Buy Now</button>
+      <button>{btnText}</button>
     </div>
   {/each}
 </article>
 
 <style>
   article {
-    height: 90vh;
+    height: 100vh;
     display: inline-flex;
     overflow: hidden;
     transform: translateX(0);
@@ -119,6 +119,7 @@
   }
 
   img {
+    margin: 1em 0 2em;
     max-width: 100%;
     max-height: 50%;
     transition: transform 0.3s ease-in-out;
